@@ -52,6 +52,10 @@ function handleKeyboardKeyUpEvent(event){
 
         //step-3: display the update life count
         currentLifeElement.innerText = newLife
+
+        if(newLife === 0){
+            gameOver()
+        }
     }
 }
 //capture keyboard key press
@@ -75,7 +79,29 @@ function continueGame(){
 
 
 function play(){
+    //hide everything show only  the playground
     hideElementById('home-screen');
+    hideElementById('final-score')
     showElementById('play-ground');
+
+    //reset score amd life
+    setTextElementValueById('current-life',5)
+    setTextElementValueById('current-score', 0)
+
     continueGame()
+}
+
+function gameOver(){
+    hideElementById('play-ground');
+    showElementById('final-score')
+
+    //update final score
+    const lastScore = setTextElementValueById('current-score');
+    console.log(lastScore);
+    setTextElementValueById('last-crore', lastScore)
+
+    //clear the last selected alphabet highlight
+    const currentAlphabet = getElementTextById('current-alphabet');
+    // console.log(currentAlphabet);
+    removeBackgroundColorById(currentAlphabet)
 }
